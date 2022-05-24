@@ -1,0 +1,98 @@
+site_name: Timechainswap Docs
+site_description: Documentations Of Timechainswap 
+site_url: https://timechainswap.com/
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: teal
+    accent: amber
+    toggle:
+      icon: material/lightbulb
+      name: Switch to light mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: teal
+    accent: amber
+    toggle:
+      icon: material/lightbulb-outline
+      name: Switch to dark mode
+
+  features:
+  - search.suggest
+  - search.highlight
+  - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github-alt
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+  logo: img/icon-white.svg
+  favicon: img/favicon.png
+  language: en
+# repo_name: tiangolo/fastapi
+# repo_url: https://github.com/tiangolo/fastapi
+edit_uri: ''
+plugins:
+- search
+markdown_extensions:
+- toc:
+    permalink: true
+- markdown.extensions.codehilite:
+    guess_lang: false
+- mdx_include:
+    base_path: docs
+- admonition
+- pymdownx.highlight:
+    anchor_linenums: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- pymdownx.superfences
+- pymdownx.tasklist:
+    custom_checkbox: true
+- pymdownx.superfences:
+    preserve_tabs: true
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format ''
+- pymdownx.tabbed:
+    alternate_style: true
+extra:
+  analytics:
+    provider: google
+    property: UA-133183413-1
+extra_css:
+- css/termynal.css
+- css/custom.css
+extra_javascript:
+- js/termynal.js
+- js/custom.js
+- optionalConfig.js
+- https://unpkg.com/mermaid@8.8.4/dist/mermaid.min.js
+- extra-loader.js
+
+nav:
+- Timechain: index.md
+- Services:
+  - Aggregator: 
+    - Services/Aggregator/index.md
+    - Protocols: 
+      - Services/Aggregator/Protocols/index.md
+      - Services/Aggregator/Protocols/Amm.md
+
+  - AggregatorOfAggregators:
+    - Services/AggregatorOfAggregators/index.md
+    - Services/AggregatorOfAggregators/api.md
