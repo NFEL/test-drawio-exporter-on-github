@@ -96,3 +96,4 @@ nav:
   - AggregatorOfAggregators:
     - Services/AggregatorOfAggregators/index.md
     - Services/AggregatorOfAggregators/api.md
+    - Services/AggregatorOfAggregators/ui.md

@@ -16,3 +16,13 @@
   - pdm install -G doc
 - Run Live server 
   - pdm run mkdocs serve --livereload
+
+# Steps to Deploy 
+Nginx serves the files ```pdm run mkdocs build``` generated!
+
+## Extra Tools
+- diagrams:
+  - mermaid
+    - https://mermaid.live/
+    - https://mermaid-js.github.io/mermaid/#/flowchart
+- 
