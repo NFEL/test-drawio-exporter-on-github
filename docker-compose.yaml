@@ -1,0 +1,8 @@
+services:
+  doc-web:
+    build: .
+    ports:
+      - 8888:8888
+    environment:
+      - APP_PORT=8888
+    

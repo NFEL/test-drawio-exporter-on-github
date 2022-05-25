@@ -97,3 +97,5 @@ nav:
     - Services/AggregatorOfAggregators/index.md
     - Services/AggregatorOfAggregators/api.md
     - Services/AggregatorOfAggregators/ui.md
+  - Buyback:
+    - Services/Buybacking/index.md
