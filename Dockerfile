@@ -12,6 +12,7 @@ COPY pyproject.toml pdm.lock README.md /project/
 # install dependencies and project
 WORKDIR /project
 RUN pdm install --prod --no-lock --no-editable
+RUN pdm install -G doc --no-lock --no-editable
 
 
 # run stage
@@ -25,5 +26,4 @@ ENV APP_PORT=8000
 COPY ./ /project
 WORKDIR /project
 CMD python3 -m mkdocs serve -a 0.0.0.0:${APP_PORT}
-# CMD python3 -m uvicorn main:app --host 0.0.0.0 --port ${APP_PORT} --workers 1 
 EXPOSE ${APP_PORT}
