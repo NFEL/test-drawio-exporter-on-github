@@ -68,3 +68,25 @@ home_address: string .
 year: int .
 
 friends: [uid] .
+
+## Query
+A DQL query finds nodes based on search criteria, matches patterns in a graph and returns a graph as a result.
+
+A query is composed of nested blocks, starting with a query root. The root finds the initial set of nodes against which the following graph matching and filtering is applied.
+
+## Facets and Edge Attributes in DQL
+Dgraph supports facets — key value pairs on edges — as an extension to RDF triples. That is, facets add properties to edges, rather than to nodes. Facets can also be used as weights for edges. [More about facets.](https://dgraph.io/docs/query-language/facets/)
+
+
+
+## Functions with DQL
+Dgraph Query Language (DQL) functions allow filtering based on properties of nodes or variables. Functions can be applied in the query root or in filters. [More about fucntions.](https://dgraph.io/docs/query-language/functions/)
+
+**Comparison functions:**
+- le: less than or equal to
+- lt: less than
+- ge: greater than or equal to
+- gt: greater than
+
+
+
