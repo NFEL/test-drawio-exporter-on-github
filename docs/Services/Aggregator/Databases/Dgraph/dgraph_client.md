@@ -58,13 +58,15 @@ amount_in: string .
 with_draw: bool .
 timestamp: dateTime .
 ```
-
-#### Facets:
-
+#### Edges:
 ```graphql
 chain: uid @reverse .
 tokens: [uid] @reverse .
 pairs: [uid] @reverse .
+```
+
+#### Facets:
+```graphql
 p0: [uid] @reverse .
 p1: [uid] @reverse .
 p2: [uid] @reverse .
