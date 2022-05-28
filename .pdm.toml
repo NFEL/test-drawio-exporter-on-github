@@ -1,2 +1,2 @@
 [python]
-path = "/home/nfel/.local/share/pdm/venv/bin/python"
+path = "/usr/bin/python3.8"
