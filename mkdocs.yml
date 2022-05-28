@@ -48,6 +48,7 @@ edit_uri: ''
 plugins:
 - search
 - drawio-exporter
+- inline-svg
   # # Diagrams are cached to speed up site generation. The default path is
   # # drawio-exporter, relative to the documentation directory.
   # cache_dir: 'drawio-exporter'
@@ -115,7 +116,9 @@ nav:
     - Protocols: 
       - Services/Aggregator/Protocols/index.md
       - Services/Aggregator/Protocols/Amm.md
-
+    - Diagrams:
+      - Versions:
+          - Services/Aggregator/Version-1.md
   - AggregatorOfAggregators:
     - Services/AggregatorOfAggregators/index.md
     - Services/AggregatorOfAggregators/api.md
