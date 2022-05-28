@@ -14,6 +14,11 @@
           - ```mkdir ~/.config/fish/completions/```
 - Install Dependencies 
   - pdm install -G doc
+- Install Drawio in your machine
+  - [Visit Here](https://github.com/jgraph/drawio-desktop/releases/tag/v18.1.3)
+    - [Deb](https://github.com/jgraph/drawio-desktop/releases/download/v18.1.3/drawio-amd64-18.1.3.deb)
+    - [RPM](https://github.com/jgraph/drawio-desktop/releases/download/v18.1.3/drawio-x86_64-18.1.3.rpm)
+  - ```sudo apt install -i <drawio-release-name.deb>```
 - Run Live server 
   - pdm run mkdocs serve --livereload
 
