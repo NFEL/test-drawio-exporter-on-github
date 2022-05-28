@@ -1,5 +1,40 @@
 # Base diagram
+---------------
+# Data structure
 
+## Base abstract model
+Base abstract model inherit all models from this model
+
+model field:
+    created_time = models.DateTimeField(verbose_name=_('created time'), auto_now_add=True)
+    modified_time = models.DateTimeField(verbose_name=_('modified time'), auto_now=True)
+    deleted_time = models.DateTimeField(verbose_name=_('deleted time'), null=True, blank=True, editable=False)
+    deleted = models.BooleanField(verbose_name=_('deleted'), default=False, editable=False)
+
+--------------------
+# Django apps
+This project contain tree apps and four celery tasks
+## Apps
+### Chain app
+It contains chains info, connections, tokens, tokens fee
+
+#### Models
+* Network model
+''' network model fields : name ,symbol,chain_id, bridge_contract_address, bridge_contract_abi, decimal_digits,active
+for example: {
+name:fantom, symbl:ftm, 
+chain_id:560, bridge_contract_address:our bridge contract address,
+bridge_contract_abi: abi address(defult=./abi/contract_abi.json),
+decimal_digits: native token decimal digits,
+active: True/False,
+}
+
+* Connection model
+This model store networks connections and can store many rpc connections from network
+''' model fields : name, path, network, type
+''' example: {name: any name , path: rpc connection, network: network relation, type: connection type}
+* 
+---------------
 # Abstract base services
 
 ## BaseContract(ABC) class
@@ -128,3 +163,8 @@ def is_valid_payment_and_transaction_info(payment, event):
                         return True
     return False
 ```
+
+
+
+--------
+# Token fee calculator

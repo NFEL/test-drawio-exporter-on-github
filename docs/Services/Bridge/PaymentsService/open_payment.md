@@ -9,8 +9,10 @@ first of all, build a transaction with our frontend app and send a transaction t
 and after that event service tyring to get the contract event and verify source transaction and after verifying src transaction
 service try sending des transaction
 
-
+----------------------
 ## Code logic
+> CheckOpenPayment class inherit from BaseContract
+
 ### checking open payments
 this function get all open payments from database and check created dates
 
