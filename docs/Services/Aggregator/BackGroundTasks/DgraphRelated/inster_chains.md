@@ -1,7 +1,9 @@
 # Chain
 Inserting chains into database is done by two methods of Chain class.
 
-**save_chain** which convert the Chain object to a dictionary that can be inserted in database.
+**save_chain**
+
+converts the Chain object to a dictionary that can be inserted in database.
 ```python
     def save_chain(self):
         obj = {
@@ -13,7 +15,9 @@ Inserting chains into database is done by two methods of Chain class.
         return obj
 ```
 
-**check_if_chain_is_token_or_dex_or_pair** which query dgraph and checks if chain's uid already exist in database and if it exist schema type it has.
+**check_if_chain_is_token_or_dex_or_pair** 
+
+Queries dgraph and checks if chain's uid already exist in database and if it exist schema type it has.
  ```python
     async def check_if_chain_is_token_or_dex_or_pair(self):
         obj = await dgraph_client().find_by_uid(self.uid, ["dgraph.type"])

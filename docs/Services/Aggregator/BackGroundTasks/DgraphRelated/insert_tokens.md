@@ -1,4 +1,6 @@
 # Insert Tokens
+In this module, we are trying to get the token details of stored pairs from blockchain, and create Token object based on those details.
+Only thing left here is to save them on dgraph (DB of choice).
 1. Query dgraph and finds all token addresses of existing pairs.
 2. Uses **Token**'s detail method to create token object of specific addresses.
 3. Uses token **check_if_token_is_pair_or_dex** method to check if token already exists in database and if yes, what schema type it has.
@@ -125,7 +127,9 @@ async def get_and_save_tokens(
         return None
 ```
 
-**token_network_detail** uses batch contract's "callContractsWithStruct" function to find name, symbol and decimals of token. Contract's logic will be explained in Contract section.
+**token_network_detail**
+
+Uses batch contract's "callContractsWithStruct" function to find name, symbol and decimals of token. Contract's logic will be explained in Contract section.
 ```python
     @classmethod
     def _token_network_detail(cls, address: Address, batch_contract: Contract, _c: Contract) -> RawToken:
@@ -137,7 +141,9 @@ async def get_and_save_tokens(
             logging.exception(e)
             return None
 ```
-**token_entries** uses "contract.functions._encode_traction_data()" to find batch contract's callContractsWithStruct function entries.
+**token_entries**
+
+Uses "contract.functions._encode_traction_data()" to find batch contract's callContractsWithStruct function entries.
 ```python
     @classmethod
     def token_entries(cls, _c: Contract, address: Address):
@@ -150,7 +156,9 @@ async def get_and_save_tokens(
         except Exception as e:
             logging.exception(f"Exception {e} occured at Token.token_entries.")
 ```
-**decode_batch_output** decodes callContractsWithStruct's output witch is a list of bytes.
+**decode_batch_output**
+
+Decodes callContractsWithStruct's output witch is a list of bytes.
 ```python
     @classmethod
     def decode_batch_output(cls, _c: Contract, batch_output:List):
@@ -176,7 +184,9 @@ async def get_and_save_tokens(
             logging.exception(f"Exception {e} occured at Token.decode_batch_output.")
 ```
 
-**check_if_token_is_pair_or_dex** query dgraph and tries to find a node with token's uid, if found one, checks if it's schema type (dgraph.type) is equal to "Token" or not.
+**check_if_token_is_pair_or_dex**
+
+Queries dgraph and tries to find a node with token's uid, if found one, checks if it's schema type (dgraph.type) is equal to "Token" or not.
 ```python
     async def check_if_token_is_pair_or_dex(self):
         obj = await dgraph_client().find_by_uid(self.uid, ["dgraph.type"])
@@ -190,7 +200,9 @@ async def get_and_save_tokens(
         return False
 ```
 
-**save_token** converts the Token object to a dictionary. connects "Token" to "Chain" using "chain" edge.
+**save_token**
+
+Converts the Token object to a dictionary. connects "Token" to "Chain" using "chain" edge.
 ```python
     def save_token(self):
         obj = self.dict()

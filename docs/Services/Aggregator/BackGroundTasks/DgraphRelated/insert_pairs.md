@@ -1,13 +1,21 @@
 # Insert Pairs
+In this module, we are trying to get the pair details from blockchain, and create Pair object based on those details.
+Only thing left here is to save them on dgraph (DB of choice).
+
+Steps to achive this:
+
 1. Reads address book data and finds factories on specified chain.
 2. Uses **DexProtocol**'s factory_class method to create Factory object for each protocol.
 3. Uses **retrieve_pair** method in dex factory class to create Pair objects.
-3. Uses dex **check_if_pair_is_token_or_dex** method in dex factory to check if pair already exists in database and if yes, what schema type it has.
-4. Uses dex **save_dex_pair** method in pair class to convert pair object into a dictionary that can be inserted to database.
-5. Inserts pair dictionary to dgraph.
+4. Uses dex **check_if_pair_is_token_or_dex** method in dex factory to check if pair already exists in database and if yes, what schema type it has.
+5. Uses dex **save_dex_pair** method in pair class to convert pair object into a dictionary that can be inserted to database.
+6. Inserts pair dictionary to dgraph.
 
 ## Read address book data
-**address book**
+###address book
+
+For each chain, we store details of dexes in an JSON object like so.
+
 ```json
 {
   "250": {
@@ -20,7 +28,9 @@
   }
 }
 ```
-**read_data** parses the address book and returns a dictionary containing **chain_id**, **protocol**, **name**, **factory** and **router**.
+**read_data**
+
+Parses the address book and returns a dictionary containing **chain_id**, **protocol**, **name**, **factory** and **router**.
 ```python
 def read_data(chain_id: int,
               address_book_directory='Utils/address_book.json'    
@@ -105,7 +115,9 @@ class DexProtocol(Enum):
 ```
 
 ## Dex class
-**check_if_decheck_if_pair_is_token_or_dex** query dgraph and tries to find a node with pair's uid, if found one, checks if it's schema type (dgraph.type) is equal to "Pair" or not.
+**check_if_decheck_if_pair_is_token_or_dex** 
+
+Queries dgraph and tries to find a node with pair's uid, if found one, checks if it's schema type (dgraph.type) is equal to "Pair" or not.
 ```python
     async def check_if_pair_is_token_or_dex(self):
         obj = await dgraph_client().find_by_uid(self.uid, ["dgraph.type"])
@@ -117,12 +129,16 @@ class DexProtocol(Enum):
                     return True
 ```
 
-**retrieve_pair** uses factory to find all of it's pairs and make Pair objects.
+**retrieve_pair**
+
+Uses factory to find all of it's pairs and make Pair objects.
 
 will be explained in Protocol section.
 
 ## Pair calss
- **save_dex_pair** converts Pair object to a dictionary that can be inserted to dgraph.
+ **save_dex_pair**
+ 
+ Converts Pair object to a dictionary that can be inserted to dgraph.
  
  will be explained in Protocol section.
 
