@@ -1,46 +1,77 @@
 # Base diagram
 ---------------
+
 # Data structure
 
 ## Base abstract model
+
 Base abstract model inherit all models from this model
 
 model field:
+
     created_time = models.DateTimeField(verbose_name=_('created time'), auto_now_add=True)
     modified_time = models.DateTimeField(verbose_name=_('modified time'), auto_now=True)
     deleted_time = models.DateTimeField(verbose_name=_('deleted time'), null=True, blank=True, editable=False)
     deleted = models.BooleanField(verbose_name=_('deleted'), default=False, editable=False)
 
+deleted for safe delete data
+
 --------------------
+
 # Django apps
+
 This project contain tree apps and four celery tasks
+
 ## Apps
+
 ### Chain app
+
 It contains chains info, connections, tokens, tokens fee
 
 #### Models
+
 * Network model
-''' network model fields : name ,symbol,chain_id, bridge_contract_address, bridge_contract_abi, decimal_digits,active
-for example: {
-name:fantom, symbl:ftm, 
-chain_id:560, bridge_contract_address:our bridge contract address,
-bridge_contract_abi: abi address(defult=./abi/contract_abi.json),
-decimal_digits: native token decimal digits,
-active: True/False,
-}
+
+fields:
+```python
+name = models.CharField(max_length=255, verbose_name="name")
+symbol = models.CharField(max_length=255, verbose_name="symbol")
+chain_id = models.IntegerField(verbose_name="chain_id")
+bridge_contract_address = models.CharField(max_length=255, verbose_name="contract_address")
+bridge_contract_abi = models.CharField(
+max_length=256, default="./abi/contract_abi.json",
+verbose_name="bridge_contract_abi"
+)
+decimal_digits = models.IntegerField(verbose_name="decimal_digits", default=18)
+active = models.BooleanField(default=True, verbose_name="active")
+
+```
+for example:
+  {
+  name:fantom, symbl:ftm,
+  chain_id:560, bridge_contract_address:our bridge contract address,
+  bridge_contract_abi: abi address(defult=./abi/contract_abi.json),
+  decimal_digits: native token decimal digits,
+  active: True/False,
+  }
 
 * Connection model
-This model store networks connections and can store many rpc connections from network
-''' model fields : name, path, network, type
-''' example: {name: any name , path: rpc connection, network: network relation, type: connection type}
+```python
+
+```
+  This model store networks connections and can store many rpc connections from network
+  '''' model fields : name, path, network, type
+  '''' example: {name: any name , path: rpc connection, network: network relation, type: connection type}
 * 
+
 ---------------
+
 # Abstract base services
 
 ## BaseContract(ABC) class
 
-
 ### set_contract method
+
 This method get a payment transaction and trying to connect network and set contract
 
 ```python
@@ -58,8 +89,11 @@ def set_contract(payment_transaction):
     except Exception as e:
         print(e)
 ```
+
 ### failed_transaction method
+
 Update payment status to reverted
+
 ```python
 @staticmethod
 def failed_transaction(payment):
@@ -78,7 +112,8 @@ def failed_transaction(payment):
 ```
 
 ### failed_service_fee method
-If calculated service fee and estimated gas is more than destnation transaction amount 
+
+If calculated service fee and estimated gas is more than destnation transaction amount
 payment update status to failed service fee (fail_service_fee)
 and service can not build transaction
 
@@ -90,6 +125,7 @@ def failed_service_fee(payment):
 ```
 
 ### done_payment method
+
 Update payment to done and stor contract transaction gas into payment info
 
 ```python
@@ -116,8 +152,11 @@ def done_payment(payment, transaction_result, gas_price):
     except Exception as e:
         BaseLogger.log_error(e)
 ```
+
 ### save_gas_info_to_model method
+
 Get gas info form des transaction and store in payment info
+
 ```python
 @staticmethod
 def save_gas_info_to_model(
@@ -136,6 +175,7 @@ def save_gas_info_to_model(
 ```
 
 ### is_valid_payment_and_transaction_info method
+
 Validate open payment with transaction info and evnet crawler
 
 ```python
@@ -164,7 +204,6 @@ def is_valid_payment_and_transaction_info(payment, event):
     return False
 ```
 
-
-
 --------
+
 # Token fee calculator

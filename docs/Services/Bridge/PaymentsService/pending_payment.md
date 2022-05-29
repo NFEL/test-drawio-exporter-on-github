@@ -1,4 +1,4 @@
-# Pending Service
+# Pending payment Service
 
 ## About
 This service is get pending payments from the database and start checking payment status

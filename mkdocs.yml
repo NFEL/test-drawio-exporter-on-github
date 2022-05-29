@@ -102,3 +102,6 @@ nav:
       - PaymentsService:
           - Services/Bridge/PaymentsService/base.md
           - Services/Bridge/PaymentsService/open_payment.md
+          - Services/Bridge/PaymentsService/pending_payment.md
+          - Services/Bridge/PaymentsService/sending_payment.md
+          - Services/Bridge/PaymentsService/refund_payment.md
