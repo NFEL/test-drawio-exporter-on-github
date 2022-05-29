@@ -2,7 +2,22 @@
 ## About
 This service get sending payments status and trying get transaction status form network and update 
 payment status
+## Flowchart diagram
 
+```mermaid
+graph TD
+    A[Sending payment service] --> B(Get sending payment)
+    B --> C{Sending payment create date < 1day}
+    C -->|Yes| D[Update sending payment status 'operator']
+    D --> B
+    C -->|No| K[Check payment trasnaction hash form network]
+    K --> L{Transaction status is done ?}
+    L --> |Yes| M[update payment status to 'done']
+    L --> |No| N{Transaction is Failed}
+    N --> |Yes| O[Update payment status 'refund_create']
+    N --> |No| B
+    M --> B
+```
 ## Code logic
 > CheckSendingPayment class inherit from BaseContract
 

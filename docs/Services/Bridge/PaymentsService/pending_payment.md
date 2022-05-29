@@ -5,6 +5,28 @@ This service is get pending payments from the database and start checking paymen
 
 
 --------------------------------------
+## Flowchart diagram
+
+```mermaid
+graph TD
+    A[Pending payment service] --> B(Get pending payment)
+    B --> C{Pending payment create date < 6hours}
+    C -->|No| D[Update pending payment status 'refund_open']
+    D --> B
+    C -->|Yes| F{pending payment has transaction des hash address}
+    F --> |No| G[Build transaction]
+    F --> |Yes| K
+    G --> I[Send transaction]
+    I --> J[Update pending payment status 'sending']
+    J --> K[Check payment trasnaction hash form network]
+    K --> L{Transaction status is done ?}
+    L --> |Yes| M[update payment status to 'done']
+    L --> |No| N{Transaction is Failed}
+    N --> |Yes| O[Update payment status 'refund_create']
+    N --> |No| B
+    M --> B
+```
+
 ## Code logic
 > CheckPendingPayment class inherit from BaseContract
 

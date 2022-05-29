@@ -10,6 +10,25 @@ and after that event service tyring to get the contract event and verify source 
 service try sending des transaction
 
 ----------------------
+## Flowchart diagram
+```mermaid
+graph TD
+    A[Open payment service] --> B(Get open payment)
+    B --> C{Open payment create date < 1day}
+    C -->|No| D[Update open payment status]
+    C -->|Yes| F[Get contract events]
+    F --> t{Can find any event?}
+    t --> |No|B
+    t --> |Yes|E{Transaction data is valid?}
+    E --> |No| F
+    E --> |Yes| H[Update open payment status to 'pending']
+    H -->  R[Trying build trasction des]
+    R --> G{Can build trasaction des ?}
+    G --> |Yes| L[Update open payment status 'sending']
+    G --> |No| K[Log into mongo trasaction problem]
+    K --> B
+    L --> B
+```
 ## Code logic
 > CheckOpenPayment class inherit from BaseContract
 
