@@ -123,5 +123,15 @@ nav:
     - Services/AggregatorOfAggregators/index.md
     - Services/AggregatorOfAggregators/api.md
     - Services/AggregatorOfAggregators/ui.md
+  - Bridge:
+      - Services/Bridge/api.md
+      - Services/Bridge/event.md
+      - PaymentsService:
+          - Services/Bridge/PaymentsService/base.md
+          - Services/Bridge/PaymentsService/open_payment.md
+          - Services/Bridge/PaymentsService/pending_payment.md
+          - Services/Bridge/PaymentsService/sending_payment.md
+          - Services/Bridge/PaymentsService/refund_payment.md
   - Buyback:
     - Services/Buybacking/index.md
+
