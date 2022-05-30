@@ -5,13 +5,23 @@ In this version of aggregator we only had a simple approach.
 It collected data via a simple script.
 
 ## HLA Diagram 
-How the service Worked.
+Setup we used to run services.
+List of services we used are as followed:
+
+- Aggregator-api
+- Aggregator-worker
+- Mongo
+- Redis
+- Nginx
+- RPC-node (Only For Backup)
+- RPC-URL
 
 ![HLA](Diagrams/Version2.drawio#0)
 
 
 ## Data Flow Diagram
-How data flow though service and handled!
+How data flow though service and inter app connections are handled!
+Periodic Tasks
 
 ![Data Flow](Diagrams/Version2.drawio#1)
 

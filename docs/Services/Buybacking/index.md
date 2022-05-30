@@ -10,8 +10,9 @@ This is a service to :
 
 
 !!! attention
-  service does not have ability authentication.
-  Please run it via vpn [pritunl](https://pritunl.com/).
+
+    service does not have ability authentication.
+    Please run it via vpn [pritunl](https://pritunl.com/).
 
 ## How to start
 
