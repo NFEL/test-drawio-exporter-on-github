@@ -19,11 +19,11 @@ RUN pdm install -G doc --no-lock --no-editable
 # RUN cargo install --version 1.1.0 drawio-exporter
 
 # run stage
-FROM python:3.8-slim-bullseye as deployer
+# FROM python:3.8-slim-bullseye as deployer
 
-# retrieve packages from build stage
-ENV PYTHONPATH=/project/pkgs
-COPY --from=builder /project/__pypackages__/3.8/lib /project/pkgs
+# # retrieve packages from build stage
+# ENV PYTHONPATH=/project/pkgs
+# COPY --from=builder /project/__pypackages__/3.8/lib /project/pkgs
 ENV APP_PORT=8000
 
 ADD https://github.com/jgraph/drawio-desktop/releases/download/v18.1.3/drawio-amd64-18.1.3.deb ./drawio.deb 
@@ -42,14 +42,15 @@ COPY ./ /project
 WORKDIR /project
 
 
-RUN xvfb-run -a mkdocs build
+RUN xvfb-run -a pdm run mkdocs build
 # CMD python3 -m mkdocs serve -a 0.0.0.0:${APP_PORT}
 # EXPOSE ${APP_PORT}
-FROM nginx
+# FROM nginx
 # COPY source dest
 FROM nginx
 
 RUN mkdir /etc/nginx/logs && touch /etc/nginx/logs/static.log
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=deployer /project/site /www
+COPY --from=builder /project/site /www
+EXPOSE 8000
