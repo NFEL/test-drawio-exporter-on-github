@@ -1,5 +1,6 @@
 # Filter Pairs
-Some pairs have low reserves therefor they heve no use for swaps.
+## Delete low reserve pairs
+Some pairs have low reserves therefor they have no use for swaps.
 1. Queries dgraph and gets all pairs (uid, reserves, decimals, tokens {uid}).
 ```python
 async def get_all_pairs(chain_id: ChainId):
@@ -117,4 +118,28 @@ async def filter_pairs(chain_id: ChainId):
                     await filter_pairs_of_tokens(token, pair.get("uid"))
     logging.info(
         "All of pairs with low reserves are gone.")
+```
+
+## Delete pairs with no token
+After setting price predicate to tokens, some tokens might end up with no price (because of not having any common pairs with base tokens), therefore they have no use for us and we cannot calculate output amount for them, so we delete them. after deleting these tokens we need to check all pairs and delete those with no tokens.
+1. Queries dgraph and get tokens of all pairs
+```python
+pairs = await dgraph_client().find_by_chain_id(
+        chain_id,
+        "Pair",
+        [
+            "uid",
+            "tokens { uid }"
+        ]
+
+    )
+    pairs = pairs.get("~chain")
+```
+2. Checks if pairs have tokens 
+```python
+for pair in pairs:
+        if pair is None:
+            return None
+        if pair.get("tokens") is None:
+            await dgraph_client().delete(pair.get("uid"))
 ```

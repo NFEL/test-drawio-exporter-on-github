@@ -1,5 +1,5 @@
 # Update Pairs
-Because of new transactions, reserves of pairs are constantly changing therefor they must be kept updated.
+Because of new transactions, reserves of pairs are constantly changing nad to calculate the right amount output we need to have updated reserves.
 1. Deletes all of **changed_pairs** uids from redis. (For each pair, if it's reserves change, it will be cached again, using **decode_batch_output** method.)
 2. Queries dgraph and gets all pairs.
 3. Makes Pair object of pairs.

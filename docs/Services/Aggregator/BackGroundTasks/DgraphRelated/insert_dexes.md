@@ -1,4 +1,7 @@
 # Insert Dexes
+In this module, we are trying to get the dex details from blockchain, and create Dex object based on those details.
+Only thing left here is to save them on dgraph (DB of choice).
+
 1. Reads address book data and finds factories on specified chain.
 2. Uses **DexProtocol**'s factory_class method to create Factory object for each protocol.
 3. Uses dex **check_if_dex_is_token_or_pair** method to check if dex already exists in database and if yes, what schema type it has.
@@ -6,7 +9,8 @@
 5. Inserts dex dictionary to dgraph.
 
 ## Read address book data
-**address book**
+### address book
+For each chain, we store details of dexes in an JSON object like so.
 ```json
 {
   "250": {

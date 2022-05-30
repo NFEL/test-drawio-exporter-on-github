@@ -44,7 +44,7 @@ flowchart LR
 ```
 - Creating a swap object for user
 ```mermaid
-flowchart LR
+flowchart TB
     C([Create Swap object]) -.- Server([Server])
     Server --> Z([Call network's aggregators swap endopint])
     Z ==> Co(Chosen aggregator)

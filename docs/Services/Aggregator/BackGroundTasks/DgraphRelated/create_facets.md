@@ -1,28 +1,32 @@
 # Create Facets
-For given pairs and given amount,
+
+For given pairs and given amount in, calculates amount out for token0 -> token1, token1 -> token0 and so on.
 
 
 ## Generate Amount In and Edge
+
 Takes an input value, From 2 to the power of 0, to, 2 to the power of that value generates amount in which are assumed in FTM price amount (This will be explained in Price section). The input default value is 20.
-- 2 ** 0: p1
-- 2 ** 1: p2
-- 2 ** 1: p3
-- 2 ** 1: p4
-- 2 ** 1: p5
-- 2 ** 1: p6
-- 2 ** 1: p7
-- 2 ** 1: p8
-- 2 ** 1: p9
-- 2 ** 1: p10
-- 2 ** 1: p11
-- 2 ** 1: p12
-- 2 ** 1: p13
-- 2 ** 1: p14
-- 2 ** 1: p15
-- 2 ** 1: p16
-- 2 ** 1: p17
-- 2 ** 1: p18
-- 2 ** 1: p19
+
+- 2 \*\* 0: p1
+- 2 \*\* 1: p2
+- 2 \*\* 1: p3
+- 2 \*\* 1: p4
+- 2 \*\* 1: p5
+- 2 \*\* 1: p6
+- 2 \*\* 1: p7
+- 2 \*\* 1: p8
+- 2 \*\* 1: p9
+- 2 \*\* 1: p10
+- 2 \*\* 1: p11
+- 2 \*\* 1: p12
+- 2 \*\* 1: p13
+- 2 \*\* 1: p14
+- 2 \*\* 1: p15
+- 2 \*\* 1: p16
+- 2 \*\* 1: p17
+- 2 \*\* 1: p18
+- 2 \*\* 1: p19
+
 ```python
 def _amount_in_generator(power) -> Iterable[int]:
     amounts_in = []
@@ -34,13 +38,16 @@ def _amount_in_generator(power) -> Iterable[int]:
     return amounts_in
 
 ```
+
 ```python
 def _edge_name(edge_index: int) -> str:
     return f"p{edge_index}"
 ```
 
 ## Generate Amount Out
+
 ### Calculate Amount Out
+
 1. Finds pair's token addresses using pair.token_addresses and token indexes.
 2. Gets token objects from redis using their addresses.
 3. Converts amount in to none FTM amount.
@@ -79,28 +86,38 @@ def _calculate_amount_out(
 ```
 
 ### Connect Amount to Edges
+
 1. Takes:
+
 - pair's uid
 - token0's uid
 - token1's uid
 - amount out of token0 -> token1
 - amount out of token1 -> token0
 - edge (p0...pn)
-2. Sets facet = {
-    pair_uid:
-    {
+
+2. 
+```python
+   Sets facets =
+   {
+
+        "uid": pair_uid,
         relation: {
-            "uid: 
+            "uid": token1,
+            "pn|{token0}" : amount_out0,
+            "pn|{token1}" : amount_out1
         }
-    }
-}
-{"uid": uid0,
-                relation: {
-                    "uid": uid1
-                }
-                } 
-            data[relation][f"{relation}|{facet}"]
-            
+   },
+   {
+        "uid": token0,
+        relation: {
+            "uid": pair_uid,
+            "pn|{token1}" : amount_out0,
+            "pn|{token0}" : amount_out1
+        }
+   }
+```
+
 ```python
 async def _connect_amount_out_to_edge(
     pair_uid: Uid,

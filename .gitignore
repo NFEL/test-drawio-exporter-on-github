@@ -1,1 +1,4 @@
 docs/drawio-exporter
+__pypackages__/
+.vscode/
+.drawio-exporter-cache/
