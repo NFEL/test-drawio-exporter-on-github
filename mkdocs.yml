@@ -50,6 +50,8 @@ plugins:
   - drawio-exporter:
       # cache_dir: '.drawio-exporter-cache'
       drawio_executable: null
+      drawio_args:
+        - --no-sandbox
       # use 'jpg' here if you see bad image icons in export
       format: svg
       sources: '*.drawio'

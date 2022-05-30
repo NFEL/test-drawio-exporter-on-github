@@ -38,11 +38,11 @@ RUN yes | apt install -y libasound2
 # ENV DRAWIO_DESKTOP_EXECUTABLE_PATH=/usr/bin/drawio
 RUN yes | apt install libasound2 xvfb
 
-RUN useradd -u 8877 john
-# Change to non-root privilege
-USER john
+# RUN useradd -u 8877 john
+# # Change to non-root privilege
+# USER john
 
-COPY --chown=john ./ /project
+COPY ./ /project
 WORKDIR /project
 
 
