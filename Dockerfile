@@ -33,6 +33,9 @@ RUN apt update
 RUN yes | apt install ./drawio.deb 
 RUN yes | apt install -y libgbm-dev
 RUN yes | apt install -y libasound2
+RUN useradd -u 8877 john
+# Change to non-root privilege
+USER john
 
 # COPY --from=drawio-exporter-installer /usr/local/cargo/bin/drawio-exporter /usr/bin/drawio
 # ENV DRAWIO_DESKTOP_EXECUTABLE_PATH=/usr/bin/drawio
