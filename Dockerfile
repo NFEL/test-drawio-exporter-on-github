@@ -14,9 +14,12 @@ WORKDIR /project
 RUN pdm install --prod --no-lock --no-editable
 RUN pdm install -G doc --no-lock --no-editable
 
+# FROM rust:buster as drawio-exporter-installer
+
+# RUN cargo install --version 1.1.0 drawio-exporter
 
 # run stage
-FROM python:3.8-slim-bullseye
+FROM python:3.8-slim-bullseye as deployer
 
 # retrieve packages from build stage
 ENV PYTHONPATH=/project/pkgs
@@ -28,10 +31,25 @@ RUN apt update
 # RUN apt install libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils  libatspi2.0-0  libsecret-1-0 
 # RUN dpkg --configure -a
 RUN yes | apt install ./drawio.deb 
+RUN yes | apt install -y libgbm-dev
+RUN yes | apt install -y libasound2
+
+# COPY --from=drawio-exporter-installer /usr/local/cargo/bin/drawio-exporter /usr/bin/drawio
+# ENV DRAWIO_DESKTOP_EXECUTABLE_PATH=/usr/bin/drawio
+RUN yes | apt install libasound2 xvfb
+
 COPY ./ /project
 WORKDIR /project
 
 
+RUN xvfb-run -a mkdocs build
+# CMD python3 -m mkdocs serve -a 0.0.0.0:${APP_PORT}
+# EXPOSE ${APP_PORT}
+FROM nginx
+# COPY source dest
+FROM nginx
 
-CMD python3 -m mkdocs serve -a 0.0.0.0:${APP_PORT}
-EXPOSE ${APP_PORT}
+RUN mkdir /etc/nginx/logs && touch /etc/nginx/logs/static.log
+
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=deployer /project/site /www
