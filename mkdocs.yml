@@ -47,9 +47,9 @@ theme:
 edit_uri: ''
 plugins:
   - search
-  - drawio-exporter:
-      drawio_args:
-          - --no-sandbox
+  - drawio-exporter
+      # drawio_args:
+      #     - --no-sandbox
   # - drawio-exporter:
   #     # cache_dir: '.drawio-exporter-cache'
   #     drawio_executable: null
