@@ -31,7 +31,8 @@ jobs:
           sudo apt-get install -y libasound2 xvfb ./"$drawio_deb"
       - name: Install Python dependencies
         run: |
-          pdm install -G doc --no-lock --no-editable -g
+          echo pyproject.toml
+          pdm install -G doc --no-lock --no-editable
       - name: Build and publish
         run: |
           xvfb-run -a pdm run mkdocs gh-deploy
