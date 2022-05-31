@@ -13,17 +13,28 @@
        -  if faced directory not found error:
           - ```mkdir ~/.config/fish/completions/```
 - Install Dependencies 
-  - pdm install -G doc
+  - ```pdm install -G doc```
 - Install Drawio in your machine
   - [Visit Here](https://github.com/jgraph/drawio-desktop/releases/tag/v18.1.3)
     - [Deb](https://github.com/jgraph/drawio-desktop/releases/download/v18.1.3/drawio-amd64-18.1.3.deb)
     - [RPM](https://github.com/jgraph/drawio-desktop/releases/download/v18.1.3/drawio-x86_64-18.1.3.rpm)
   - ```sudo apt install -i <drawio-release-name.deb>```
 - Run Live server 
-  - pdm run mkdocs serve --livereload
+  - ```pdm run mkdocs serve --livereload```
 
 # Steps to Deploy 
-Nginx serves the files ```pdm run mkdocs build``` generated!
+Use local vps :
+
+- Create post-commit script to take a build on developer machine on main branch 
+- Nginx serves the files ```pdm run mkdocs build``` generates!
+  - P.S. you can Use ```pdm run mkdocs gh-deploy``` to create an extra branch named **gh-page**
+  - All static files are located there!
+
+Use github pages:
+
+- Copy .githooks/pre-commit
+- Ask your git provider (e.g. Github) to use this branch as github page 
+
 
 ## Extra Tools
 - diagrams:

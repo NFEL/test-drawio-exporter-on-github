@@ -1,0 +1,11 @@
+#!/bin/sh
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$BRANCH" = "main" ]; then
+  echo "Updaing gh-pages branch with new build to main branch";
+  rm -rf docs/drawio-exporter
+  pdm run mkdocs gh-deploy
+  echo "Cleaning build"
+  rm -rf site/
+  echo "Reindex Files ..." 
+  git add .
+fi
