@@ -26,26 +26,37 @@ RUN pdm install -G doc --no-lock --no-editable
 # COPY --from=builder /project/__pypackages__/3.8/lib /project/pkgs
 ENV APP_PORT=8000
 
+# COPY ./drawio.deb ./drawio.deb
 ADD https://github.com/jgraph/drawio-desktop/releases/download/v18.1.3/drawio-amd64-18.1.3.deb ./drawio.deb 
 RUN apt update
-# RUN apt install libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils  libatspi2.0-0  libsecret-1-0 
-# RUN dpkg --configure -a
+
+RUN echo "HI "
+# RUN set -eux; \
+# 	apt-get update; \
+# 	apt-get install -y gosu; \
+# 	rm -rf /var/lib/apt/lists/*; \
+# # verify that the binary works
+# 	gosu nobody true
+
+# RUN useradd -m john && echo "john:john" | chpasswd
+# # && adduser john gosu
+
+# USER john
+# # RUN gosu --help
+
 RUN yes | apt install ./drawio.deb 
 RUN yes | apt install -y libgbm-dev
 RUN yes | apt install -y libasound2
 
 # COPY --from=drawio-exporter-installer /usr/local/cargo/bin/drawio-exporter /usr/bin/drawio
-# ENV DRAWIO_DESKTOP_EXECUTABLE_PATH=/usr/bin/drawio
+# ENV DRAWIO_DESKTOP_EXECUTABLE_PATH="/usr/bin/drawio /bin/drawio "
+
 RUN yes | apt install libasound2 xvfb
 
-RUN useradd -u 8877 john
-# Change to non-root privilege
-USER john
-
-COPY --chown=john ./ /project
+COPY ./ /project
 WORKDIR /project
 
-
+RUN chmod 1777 /dev/shm
 RUN xvfb-run -a pdm run mkdocs build
 # CMD python3 -m mkdocs serve -a 0.0.0.0:${APP_PORT}
 # EXPOSE ${APP_PORT}

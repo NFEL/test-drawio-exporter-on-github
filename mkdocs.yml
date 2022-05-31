@@ -48,13 +48,17 @@ edit_uri: ''
 plugins:
   - search
   - drawio-exporter:
-      # cache_dir: '.drawio-exporter-cache'
-      drawio_executable: null
       drawio_args:
-        - --no-sandbox
-      # use 'jpg' here if you see bad image icons in export
-      format: svg
-      sources: '*.drawio'
+          - --no-sandbox
+  # - drawio-exporter:
+  #     # cache_dir: '.drawio-exporter-cache'
+  #     drawio_executable: null
+  #     drawio_args: 
+  #       - "--no-sandbox"
+  #       - "--border 10"
+  #     # use 'jpg' here if you see bad image icons in export
+  #     format: svg
+  #     sources: '*.drawio'
   - inline-svg
 markdown_extensions:
 - toc:
