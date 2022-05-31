@@ -57,7 +57,7 @@ COPY ./ /project
 WORKDIR /project
 
 RUN chmod 1777 /dev/shm
-RUN xvfb-run -a pdm run mkdocs build
+RUN xvfb-run -l -a pdm run mkdocs build
 # CMD python3 -m mkdocs serve -a 0.0.0.0:${APP_PORT}
 # EXPOSE ${APP_PORT}
 # FROM nginx
